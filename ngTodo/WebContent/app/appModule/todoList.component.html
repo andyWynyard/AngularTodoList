@@ -1,0 +1,85 @@
+<div class="container light">
+<div class="jumbotron">
+  <h1 class="display-3 text-center">Todo List</h1>
+  <h4>Total <span class="label label-default">{{ vm.getTodoCount() }}</span></h4>
+  <h4>Incomplete <span ng-class="vm.checkNumNotDone()" class="label">{{ vm.getTodoIncomplete() }}</span></h4>
+   <!-- <my-content>Fucking Modal</my-content> -->
+   
+   </div>
+   
+   <div class="container-flex">
+   <form class="form-group" ng-hide="vm.selected">
+  <div class="row">
+  <div class="col-xs-5">
+   <input type="text" class="form-control" ng-model="todo.task" placeholder="Task" />
+  </div>
+  <div class="col-xs-5">
+  <input type="text" class="form-control" ng-model="todo.description" placeholder="Description" />
+  
+  </div>
+  <div class="col-xs-2">
+  <input type="submit" value="Add Todo" class="btn btn-info btn-block" ng-click="vm.addTodo(todo); todo={}" />
+  </div>
+  </div>
+  </form>
+  
+  </div>
+  
+  <div class="container-flex">
+  <input type="submit" value="Filter by Incomplete" class="btn btn-info btn-block" ng-click="vm.selectDone = 1" ng-show="vm.selectDone == 0 && !vm.selected"/>
+  <input type="submit" value="Show All" class="btn btn-info btn-block" ng-click="vm.selectDone = 0" ng-show="vm.selectDone == 1 && !vm.selected"/>
+</div>
+ 
+
+  <table ng-hide="vm.selected" class="well table table-striped">
+    <thead>
+      <tr>
+        <th>Task</th> 
+        <th>Mark</th>
+        <th>Completed</th>
+        <th>Completed Date</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="todo in vm.todos | orderBy:'task' | incomplete: vm.selectDone" ng-class="vm.checkStrikethrough(todo)">
+      
+        <td><button class="btn btn-default" ng-click="vm.displayTodo(todo)">{{todo.task}}</button></td>
+        <td><input type="checkbox" ng-model="todo.completed" ng-change="vm.updateTodo(todo); vm.displayTable();" /></td>      
+        <td>{{todo.completed}}</td>
+        <td>{{todo.completeDate}}</td>
+        
+        <td><button ng-click="vm.deleteTodo(todo.id)" class="btn btn-danger">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="well" ng-show="vm.selected && !vm.editTodo" >
+    <div>ID : {{vm.selected.id}}</div>
+    <div>Task : {{vm.selected.task}}</div>
+    <div>Description : {{vm.selected.description}}</div>
+    <div>Complete Date : {{vm.selected.completeDate}}</div>
+    <div>Completed : {{(vm.selected.completed) ? 'Yes' : 'No';}}</div>
+    <button ng-click="vm.setEditTodo()" class="btn btn-warning">Edit</button>
+    <button ng-click="vm.displayTable(); vm.reload()" class="btn btn-success">Go
+			Back</button>
+  </div>
+  <div class="well" ng-show="vm.editTodo">
+    <form>
+      <input type="text" class="form-control" ng-model="vm.editTodo.task" /> 
+      <input type="checkbox" ng-model="vm.editTodo.completed" /> 
+      <input type="text" class="form-control" ng-model="vm.editTodo.description" />
+      <button class="btn btn-warning" ng-click="vm.editTodo = null;">Cancel</button>
+      <button class="btn btn-success" ng-click="vm.updateTodo(vm.editTodo); vm.selected = vm.editTodo; vm.editTodo = null">Save</button>
+    </form>
+  </div>
+
+	<!-- <div class="well">
+		<img src="https://raw.githubusercontent.com/SkillDistillery/SD11/master/unit_3/week_3/imgs/ng-diagram.jpg?token=ATYoBozUemEhyM-9BMGPoKBIRT4nplEQks5ZqM1hwA%3D%3D" alt="AngularJS Image">
+	</div> -->
+
+
+</div>
+
+
+

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<context:component-scan base-package="controllers,data" />
+
+
+<!-- 	<bean id="TodoDAO" class="data.TodoDAOImpl" /> This is what to change
+ -->	<!-- can also have @Repository above class name in DAO -->
+
+	<!-- bcrypt bean -->
+	<bean id="bCryptPasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+
+	<!-- OLD emf FROM BEFORE RDS -->
+	
+	<!--  <bean id="myEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="ngTodo" /> HAS TO BE persistence-unit name
+	</bean>  -->
+
+	<bean id="myTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="myEntityManagerFactory" />
+	</bean>
+
+
+	<!-- previous servlet content -->
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/*/todo/**" />
+			<bean id="DataSecurityInterceptor" class="security.DataSecurityInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- additional servlet content -->
+
+
+
+	<mvc:annotation-driven />
+	<tx:annotation-driven transaction-manager="myTransactionManager" />
+	
+	
+	
+	
+	<!-- NEW STUFF FOR RDS -->
+	
+	<bean id="dataSource"
+  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  <property name="driverClassName" value="${rds_driver}" />
+  <property name="url"
+    value="${rds_jdbc_host}" />
+  <property name="username" value="${rds_mysql_user}" />
+  <property name="password" value="${rds_mysql_password}" />
+</bean>
+
+ <bean id="persistenceExceptionTranslationPostProcessor"
+  class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+ 
+
+
+<!-- This loads the properties file -->
+
+
+
+ <bean id="properties"
+  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+  <property name="location" value="classpath:rds.properties" />
+</bean>
+
+
+
+
+
+
+<bean id="myEntityManagerFactory"
+  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+  <property name="dataSource" ref="dataSource" />
+  <property name="packagesToScan" value="entities" />
+  <property name="jpaVendorAdapter">
+    <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+  </property>
+  <property name="jpaProperties">
+    <props>
+      <prop key="hibernate.show_sql">false</prop>
+          <prop key="hibernate.format_sql">false</prop>
+      <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+      <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+    </props>
+  </property>
+</bean>
+	
+	
+	
+
+
+</beans>

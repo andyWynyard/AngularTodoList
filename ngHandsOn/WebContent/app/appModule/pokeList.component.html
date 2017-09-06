@@ -1,0 +1,54 @@
+<div class="container">
+
+<div class="well" ng-hide="vm.selected">
+<input type="submit" ng-repeat="type in vm.types" class="btn btn-success" value="{{type}}" ng-click="vm.setType(type)"/>
+</div>
+
+<div class="well" ng-show="vm.selected" >
+<h4>PokeID: {{vm.selected.pokeId}}</h4>
+<h4>Name: {{vm.selected.name}}</h4>
+<h4>Type: {{vm.selected.types[0].name}} , {{vm.selected.types[1].name}}</h4>
+<h5>Experience: {{vm.selected.exp | number:1}}</h5>
+<h5>Height: {{vm.selected.height | number:1}}</h5>
+<h5>Weight: {{vm.selected.weight | number:1}}</h5>
+<h5>Description: {{vm.selected.description}}</h5>
+
+<h3><img src="{{vm.selected.img}}"/></h3>
+	<input type="submit" value="Show All" class="btn btn-info" ng-click="vm.selected=null"/>	
+
+</div>
+
+
+
+
+
+ <!-- Main Page -->
+<div class="well" ng-hide="vm.selected">
+<form>
+	<input type="text" placeholder="PokeId" ng-model="poke.pokeId" />
+	<input type="text" placeholder="Name" ng-model="poke.name" />
+	<input type="text" placeholder="Height" ng-model="poke.height" />
+	<input type="text" placeholder="Weight" ng-model="poke.weight" />
+	<input type="text" placeholder="Exp" ng-model="poke.exp" />
+	<input type="text" placeholder="Image URL" ng-model="poke.img" />
+	<input type="textbox" placeholder="Description" ng-model="poke.description" />
+	</br>
+	<input type="submit" class="btn btn-success" value="Submit" ng-click="vm.createPokemon(poke); poke = {}" />
+
+</form>
+</div>
+
+
+<div ng-hide="vm.selected" class="well" ng-repeat="poke in vm.pokemons | pokeType: vm.selectedType | orderBy:'pokeId'">
+
+
+<h4>PokeID: {{poke.pokeId}}</h4>
+<h4>Name: {{poke.name}}</h4>
+<h3><img src="{{poke.img}}" style="max-width: 100px"/></h3>
+<input type="submit" value="Show" class="btn btn-info" ng-click="vm.show(poke.pokeId)"/>
+
+
+</div>
+
+
+</div>

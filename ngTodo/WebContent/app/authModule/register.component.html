@@ -1,0 +1,33 @@
+<form class="form login-box">
+
+<div class="container-flex">
+<h1 class="display-3 text-center">Register for your own Todo List!</h1>
+<div class="row">
+<div class="col">
+	<input type="text" class="form-control" ng-model="user.email" placeholder="email" required /><br> 
+	<input type="password" class="form-control" ng-model="user.password" placeholder="password" required />  <br>
+	<input type="password" class="form-control" ng-model="user.confirm" placeholder="password" required />  <br>
+	<input type="submit" class="btn btn-success btn-block" value="Submit" ng-click="vm.register(user)" />
+	</div>
+	</div>
+	</div>
+	
+</form>
+
+<div>
+	<ul>
+		<li ng-repeat="error in vm.errors" ng-show="vm.errors.length > 0">{{error}}</li>
+	</ul>
+</div>
+
+
+
+<div ng-app="particlesApp">
+	<div ng-controller="particlesCtrl">
+		<div particles-drv ng-show="showParticles"></div>
+	</div>
+</div>
+
+
+
+

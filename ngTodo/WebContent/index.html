@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+
+<head>
+<meta charset="utf-8">
+<title>Hello Angular</title>
+
+
+<!-- BOOTSTRAP CDN -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<!-- PARTICLES CDN -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+<!-- JQUERY -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+<!-- BOOTSTRAP: Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+crossorigin="anonymous"></script>
+
+
+<!-- OVERRIDING CSS -->
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<link rel="stylesheet" type="text/css" href="css/stars.css">
+
+
+<!-- ANGULAR CDN -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+	
+	
+	
+<!-- ui.bootstrap -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+	
+	
+	
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-cookies.min.js"></script>
+
+<script src="app/particlesModule/stars.js"></script>
+
+<!-- module -->
+<script src="app/appModule/app.module.js"></script>
+
+<!-- service -->
+<script src="app/appModule/todo.service.js"></script>
+<script src="app/appModule/incomplete.filter.js"></script>
+
+<!-- angular imports -->
+
+<script src="app/authModule/auth.module.js"></script>
+<script src="app/authModule/auth.service.js"></script>
+<script src="app/authModule/login.component.js"></script>
+<script src="app/authModule/register.component.js"></script>
+<script src="app/authModule/logout.component.js"></script>
+<!-- appModule import -->
+
+
+
+
+<!-- component -->
+
+<script src="app/appModule/todoList.component.js"></script>
+<script src="app/appModule/about.component.js"></script>
+<script src="app/appModule/contact.component.js"></script>
+<script src="app/appModule/home.component.js"></script>
+<script src="app/appModule/navigation.component.js"></script>
+<script src="app/appModule/notFound.component.js"></script>
+<script src="app/appModule/notifyModal.component.js"></script>
+<script src="app/appModule/myContent.component.js"></script>
+</head>
+
+<body>
+
+	<navigation></navigation>
+	<ng-view>LOADING..... BRO</ng-view>
+
+</body>
+
+</html>

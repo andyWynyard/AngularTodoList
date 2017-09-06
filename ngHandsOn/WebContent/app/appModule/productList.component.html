@@ -1,0 +1,31 @@
+
+
+
+
+
+<button id="click" ng-click="vm.log('This also')">Clicky</button>
+
+
+
+<form>
+  <input type="text" placeholder="Name" ng-model="obj.name" /><br />
+  <input type="text" placeholder="Price" ng-model="obj.price" /><br />
+  <input type="text" placeholder="Image URL" ng-model="obj.imgUrl" /><br />
+  <input type="number" placeholder="rating" ng-model="obj.rating" /><br />
+  <input type="submit" value="Add Item" ng-click="vm.addProduct(obj); obj = {}"  />
+</form>
+
+<div ng-repeat="films in vm.list">
+
+<h3>
+    {{films.name}}
+  </h3>
+<img ng-src="{{films.imgUrl}}"/>
+  
+
+</div>
+
+
+<h4>Total Length: {{vm.films()}}</h4>
+
+
